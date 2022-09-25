@@ -4,8 +4,8 @@ import sys
 from datetime import date
 
 if __name__ == '__main__':
-    # Список работников.
-    workers = []
+    # Список рейсов.
+    reys = []
 
     # Организовать бесконечный цикл запроса команд.
     while True:
@@ -17,23 +17,24 @@ if __name__ == '__main__':
             break
 
         elif command == 'add':
-            # Запросить данные о работнике.
-            name = input("Фамилия и инициалы? ")
-            post = input("Должность? ")
-            year = int(input("Год поступления? "))
+            # Запросить данные о рейсе.
+            pynkt = input("Пункта назначения рейса: ")
+            numb = int(input("Номер рейса: "))
+            samolet = input("Тип самолета: ")
 
             # Создать словарь.
-            worker = {
-            'name': name,
-            'post': post,
-            'year': year,
+            rey = {
+            'pynkt': pynkt,
+            'numb': numb,
+            'samolet': samolet,
             }
 
             # Добавить словарь в список.
-            workers.append(worker)
+            reys.append(rey)
+
             # Отсортировать список в случае необходимости.
-            if len(workers) > 1:
-                workers.sort(key=lambda item: item.get('name', ''))
+            if len(reys) > 1:
+                reys.sort(key=lambda item: item.get('numb', ''))
 
         elif command == 'list':
             # Заголовок таблицы.
@@ -48,47 +49,44 @@ if __name__ == '__main__':
             print(
                 '| {:^4} | {:^30} | {:^20} | {:^8} |'.format(
                 "No",
-                "Ф.И.О.",
-                "Должность",
-                "Год"
+                "Пункт назначения",
+                "Номер рейса",
+                "Тип"
                 )
             )
             print(line)
 
-            # Вывести данные о всех сотрудниках.
-            for idx, worker in enumerate(workers, 1):
+            # Вывести данные о всех рейсах.
+            for idx, rey in enumerate(reys, 1):
                 print(
                     '| {:>4} | {:<30} | {:<20} | {:>8} |'.format(
                     idx,
-                    worker.get('name', ''),
-                    worker.get('post', ''),
-                    worker.get('year', 0)
+                    rey.get('pynkt', ''),
+                    rey.get('numb', ''),
+                    rey.get('samolet', 0)
                     )
                 )
                 print(line)
 
         elif command.startswith('select '):
-            # Получить текущую дату.
-            today = date.today()
-
-            # Разбить команду на части для выделения номера года.
+            # Разбить команду на части.
             parts = command.split(' ', maxsplit=1)
-            # Получить требуемый стаж.
-            period = int(parts[1])
+            # Получить требуемый город.
+            period = str(parts[1])
 
-            # Инициализировать счетчик.
             count = 0
-            # Проверить сведения работников из списка.
-            for worker in workers:
-                if today.year - worker.get('year', today.year) >= period:
-                    count += 1
-                    print(
-                        '{:>4}: {}'.format(count, worker.get('name', ''))
-                    )
 
-            # Если счетчик равен 0, то работники не найдены.
-                if count == 0:
-                    print("Работники с заданным стажем не найдены.")
+            # Проверить сведения о пункте.
+            for rey in reys:
+                if rey.get('pynkt','') == period:
+                    count += 1
+                    print("Номер рейса: ",
+                        rey.get('numb'),
+                        "Тип самолета: ",
+                        rey.get('samolet'))
+                    count += 1
+            if count == 0:
+                print("В данный пункт самолетов нет.")
 
         elif command == 'help':
             # Вывести справку о работе с программой.
