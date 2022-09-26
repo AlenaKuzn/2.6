@@ -72,13 +72,13 @@ if __name__ == '__main__':
             # Разбить команду на части.
             parts = command.split(' ', maxsplit=1)
             # Получить требуемый город.
-            period = str(parts[1])
+            pynkt_pr = str(parts[1])
 
             count = 0
 
             # Проверить сведения о пункте.
             for rey in reys:
-                if rey.get('pynkt','') == period:
+                if rey.get('pynkt','') == pynkt_pr:
                     count += 1
                     print("Номер рейса: ",
                         rey.get('numb'),
