@@ -24,10 +24,10 @@ if __name__ == '__main__':
 
             # Создать словарь.
             rey = {
-            'pynkt': pynkt,
-            'numb': numb,
-            'samolet': samolet,
-            }
+                'pynkt': pynkt,
+                'numb': numb,
+                'samolet': samolet,
+                }
 
             # Добавить словарь в список.
             reys.append(rey)
